@@ -46,6 +46,8 @@ async function getRandomParticipant(config?:any) {
 
     participantListObj.forEach(p => {for(let i = 0; i < p.tickets; i++){arrMap.push(p.id)}})
 
+    if(arrMap.length == 0) {return {message:"Nicht genug Tickets!", error: true}}
+
     let id = arrMap[Math.floor(Math.random()*arrMap.length)]
 
     const participant = JSONify(await getDoc(await doc(db, "veranstaltungen/"+ event + "/participants", id)))
