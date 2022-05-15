@@ -1,5 +1,5 @@
 import { db } from "./firebaseInit";
-import {Participant} from "./Participant";
+import {Participant} from "./participant";
 import {addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc} from "firebase/firestore";
 
 import {event} from "../config";
@@ -23,7 +23,6 @@ async function getParticipants() {
 };
 
 async function getParticipant(id:string) {
-    const participantsCol = await collection(db, "veranstaltungen/"+ event + "/participants");
     const participant = await getDoc(await doc(db, "veranstaltungen/"+ event + "/participants", id))
 
     return JSONify(participant)
@@ -41,7 +40,7 @@ async function getRandomParticipant(config?:any) {
     const participantsCol = await collection(db, "veranstaltungen/"+ event + "/participants");
     const participantListObj = (await getDocs(participantsCol)).docs.map(JSONify)
 
-    if(participantListObj.length < 2) {return {severity:"error", message:"Nicht genug Teilnehmer gefunden!"}}
+    if(participantListObj.length < 2) {return {message:"Nicht genug Teilnehmer gefunden!", error: true}}
 
     let arrMap:Array<string> = []
 
@@ -51,7 +50,7 @@ async function getRandomParticipant(config?:any) {
 
     const participant = JSONify(await getDoc(await doc(db, "veranstaltungen/"+ event + "/participants", id)))
 
-    return participant
+    return {participant, error: false}
 }
 
 export {addUser, getParticipants, getParticipant, setParticipant, getRandomParticipant, deleteParticipant}

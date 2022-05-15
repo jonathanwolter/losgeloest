@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react';
 import './App.css';
 
-import {AddParticipant} from './components/AddParticipant';
-import {ParticipantList} from './components/ParticipantList';
+import {AddParticipant} from './components/addParticipant';
+import {ParticipantList} from './components/participantList';
 import {Alert, Snackbar} from "@mui/material";
 
 let openAlert = (message:string, error:boolean) => {};

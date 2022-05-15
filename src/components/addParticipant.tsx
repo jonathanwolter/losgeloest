@@ -1,10 +1,8 @@
 import TextField from "@mui/material/TextField";
-import {Plus} from "../symbols";
 import React from "react";
-import {Alert, Button, Snackbar} from "@mui/material";
+import {Button} from "@mui/material";
 import {AddCircle} from '@mui/icons-material';
 import {addUser} from "../scripts/firebaseFunctions";
-import { updateParticipantList } from "./DrawParticipants";
 import {openAlert} from "../App";
 
 function AddParticipant() {
@@ -13,18 +11,18 @@ function AddParticipant() {
     const [newUserTickets, setNewUserTickets] = React.useState(0);
 
     async function add() {
-        if(newUserName == "") {setUserNameIncorrect(true); return;}
+        if(newUserName === "") {setUserNameIncorrect(true); return;}
         let name = newUserName;
         let tickets = newUserTickets;
         setNewUserName("");
         setNewUserTickets(0)
 
-        let res = await addUser({name, tickets});
+        await addUser({name, tickets});
         openAlert(`Nutzer ${name} mit ${tickets} Tickets hinzugefügt`, false);
     }
 
     function handleNameChange(event:any) {
-        setUserNameIncorrect(event.target.value == "")
+        setUserNameIncorrect(event.target.value === "")
         setNewUserName(event.target.value);
     }
     function handleTicketsChange(event:any) {

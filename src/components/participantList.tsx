@@ -1,41 +1,23 @@
 import TextField from "@mui/material/TextField";
-import {DrawParticipants} from "./DrawParticipants";
+import {DrawParticipants} from "./drawParticipants";
 import {db} from "../scripts/firebaseInit";
 import React from "react";
 import {getRandomParticipant} from "../scripts/firebaseFunctions";
-import {Alert, Button, Snackbar} from "@mui/material";
+import {Button} from "@mui/material";
 import {Shuffle} from "@mui/icons-material";
+import {openAlert} from "../App";
 
 
 function ParticipantList() {
-    let autcompleteOptions = []
-    const [open, setOpen] = React.useState(false);
     const [winnerObject, setWinnerObject] = React.useState({name:"", severity:"success", message:""});
-
-    async function refreshAutocomplete() {
-    }
-
-
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpen(false);
-    };
 
     async function getRandom() {
         const res = await getRandomParticipant();
-        setOpen(true)
-        setWinnerObject(res)
+        setWinnerObject(res.participant)
+        openAlert(winnerObject.name ? "Der Sieger ist " + winnerObject.name + "!" : res.message!, res.error)
     }
 
     return <div>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity={winnerObject.severity == "error" ? "error" : "success"} sx={{ width: '100%' }}>
-                {winnerObject.name ? "Der Sieger ist " + winnerObject.name + "!" : winnerObject.message}
-            </Alert>
-        </Snackbar>
         <div className="grid-cols-2">
             <div className="bg-gray-100 shadow-md w-full inset-x-0 fixed mb-20 flex">
                 <TextField
