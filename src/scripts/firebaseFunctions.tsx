@@ -23,7 +23,6 @@ async function localUserStorageUpdateListener() {
             if (change.type === "added") {
                 if (localUserStorage.filter((p: any) => p.id === change.doc.id).length == 0) {
                     localUserStorage.push(JSONify(change.doc));
-                    //console.log(localUserStorage);
                 }
                 //let index = localUserStorage.indexOf(localUserStorage.filter((p:any) => p.id === change.doc.id)[0])
                 //console.log("edit", localUserStorage[index])
@@ -46,8 +45,11 @@ function JSONify(doc: any) {
     return Object.assign(doc.data(), {id: doc.id})
 }
 
-async function addUser(participant: Participant) {
-    await addDoc(partCol, participant)
+async function addParticipant(participant: Participant) {
+    let res = await addDoc(partCol, participant);
+    let tempPart = participant;
+    tempPart.id = res.id;
+    //localUserStorage.push(tempPart);
 
     return Promise.resolve()
 }
@@ -109,4 +111,4 @@ async function getRandomParticipant(config?: any) {
     return {participant, error: false}
 }
 
-export {addUser, getParticipants, getParticipant, changeParticipant, getRandomParticipant, deleteParticipant}
+export {addParticipant, getParticipants, getParticipant, changeParticipant, getRandomParticipant, deleteParticipant}

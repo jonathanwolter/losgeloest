@@ -2,7 +2,7 @@ import TextField from "@mui/material/TextField";
 import React from "react";
 import {Button} from "@mui/material";
 import {AddCircle} from '@mui/icons-material';
-import {addUser} from "../scripts/firebaseFunctions";
+import {addParticipant} from "../scripts/firebaseFunctions";
 import {updateParticipantList} from "./drawParticipants";
 import {openAlert} from "../App";
 
@@ -21,7 +21,7 @@ function AddParticipant() {
         setNewUserName("");
         setNewUserTickets(0)
 
-        await addUser({name, tickets});
+        await addParticipant({name, tickets});
         updateParticipantList();
         openAlert(`Nutzer ${name} mit ${tickets} Tickets hinzugefügt`, false);
     }
