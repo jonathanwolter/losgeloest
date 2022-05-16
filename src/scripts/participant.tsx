@@ -1,8 +1,8 @@
 interface Participant {
-    name:string;
+    name: string;
     tickets: number;
-    id?:string;
-    config?:any;
+    id?: string;
+    config?: any;
 }
 
 export type {Participant};

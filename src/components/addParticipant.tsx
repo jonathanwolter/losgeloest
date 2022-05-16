@@ -3,6 +3,7 @@ import React from "react";
 import {Button} from "@mui/material";
 import {AddCircle} from '@mui/icons-material';
 import {addUser} from "../scripts/firebaseFunctions";
+import {updateParticipantList} from "./drawParticipants";
 import {openAlert} from "../App";
 
 function AddParticipant() {
@@ -11,21 +12,26 @@ function AddParticipant() {
     const [newUserTickets, setNewUserTickets] = React.useState(0);
 
     async function add() {
-        if(newUserName === "") {setUserNameIncorrect(true); return;}
+        if (newUserName === "") {
+            setUserNameIncorrect(true);
+            return;
+        }
         let name = newUserName;
         let tickets = newUserTickets;
         setNewUserName("");
         setNewUserTickets(0)
 
         await addUser({name, tickets});
+        updateParticipantList();
         openAlert(`Nutzer ${name} mit ${tickets} Tickets hinzugefügt`, false);
     }
 
-    function handleNameChange(event:any) {
+    function handleNameChange(event: any) {
         setUserNameIncorrect(event.target.value === "")
         setNewUserName(event.target.value);
     }
-    function handleTicketsChange(event:any) {
+
+    function handleTicketsChange(event: any) {
         setNewUserTickets(Number(event.target.value));
     }
 
@@ -43,7 +49,7 @@ function AddParticipant() {
             <TextField
                 id="addUserTickets"
                 label="Tickets"
-                InputProps={{ inputProps: { min: 0, max: 99 } }}
+                InputProps={{inputProps: {min: 0, max: 99}}}
                 className="w-[50%] m-2 p-4 hover:bg-white"
                 onChange={handleTicketsChange}
                 value={newUserTickets}

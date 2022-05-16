@@ -9,7 +9,7 @@ import {openAlert} from "../App";
 
 
 function ParticipantList() {
-    const [winnerObject, setWinnerObject] = React.useState({name:"", severity:"success", message:""});
+    const [winnerObject, setWinnerObject] = React.useState({name: "", severity: "success", message: ""});
 
     async function getRandom() {
         const res = await getRandomParticipant();

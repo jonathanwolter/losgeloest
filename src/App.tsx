@@ -1,11 +1,12 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import './App.css';
 
 import {AddParticipant} from './components/addParticipant';
 import {ParticipantList} from './components/participantList';
 import {Alert, Snackbar} from "@mui/material";
 
-let openAlert = (message:string, error:boolean) => {};
+let openAlert = (message: string, error: boolean) => {
+};
 
 function App() {
     const [open, setOpen] = React.useState(false);
@@ -20,11 +21,12 @@ function App() {
         setOpen(false);
     };
 
-    function openSnackbar(message:string, error:boolean) {
+    function openSnackbar(message: string, error: boolean) {
         setSnackbarMessage(message)
         setAlertError(error)
         setOpen(true)
     }
+
     openAlert = openSnackbar;
 
     return (
@@ -34,7 +36,7 @@ function App() {
                 <AddParticipant/>
             </div>
             <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} className={"shadow-xl mb-20"}>
-                <Alert onClose={handleClose} severity={alertError ? "error" : "success"} sx={{ width: '100%' }}>
+                <Alert onClose={handleClose} severity={alertError ? "error" : "success"} sx={{width: '100%'}}>
                     {snackbarMessage}
                 </Alert>
             </Snackbar>

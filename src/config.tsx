@@ -19,6 +19,6 @@ const firebaseConfigDev = {
     measurementId: "G-CTZRCC21HG"
 };
 
-const event="testfest22"
+const event = "testfest22"
 
 export {firebaseConfigDev as firebaseConfig, event, fireDebug}
